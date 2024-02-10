@@ -68,21 +68,21 @@ void startShow(int i) {
             break;
     case 1: colorWipe(strip.Color(255, 0, 0), 50);  // Red
             break;
-    case 2: colorWipe(strip.Color(0, 255, 0), 50);  // Green
+    case 2: colorWipe(strip.Color(255, 0, 0), 50);  // Green
             break;
-    case 3: colorWipe(strip.Color(0, 0, 255), 50);  // Blue
+    case 3: colorWipe(strip.Color(255, 0, 0), 50);  // Blue
             break;
     case 4: theaterChase(strip.Color(127, 127, 127), 50); // White
             break;
     case 5: theaterChase(strip.Color(127,   0,   0), 50); // Red
             break;
-    case 6: theaterChase(strip.Color(  0,   0, 127), 50); // Blue
+    case 6: theaterChase(strip.Color(127,   0,   0), 50); // Blue
             break;
-    case 7: rainbow(10);    // origin:20
+    case 7: rainbow(20);    // origin:20
             break;
-    case 8: rainbowCycle(10);// origin:20
+    case 8: rainbowCycle(20);// origin:20
             break;
-    case 9: theaterChaseRainbow(10);//origin:50
+    case 9: theaterChaseRainbow(50);//origin:50
             break;
   }
 }
