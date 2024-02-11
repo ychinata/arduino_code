@@ -11,6 +11,12 @@ LiquidCrystal_I2C lcd(0x20, 16, 2);
 // addr 'H' mode
 #define ADDR 0b1011100
 #define FILTER_A 1
+
+/* BH1750FVI
+https://blog.csdn.net/qq_55490300/article/details/130967259
+https://blog.csdn.net/u012308586/article/details/105728566
+*/
+
 String teststring = "";
 //char s;/
 
@@ -39,12 +45,14 @@ float k = 1.146;
 void setup() {
     Serial.begin(9600);
     myserial.begin(9600);
+    // 四路灯板D3/5/6/9
     pinMode(3, OUTPUT);
     pinMode(5, OUTPUT);
     pinMode(6, OUTPUT);
     pinMode(9, OUTPUT);
     lcd.init(); //初始化LCD
     lcd.backlight();//背光打开// put your setup code here, to run once:
+    // key D8
     pinMode(8, INPUT);
 
   //Value=251;
