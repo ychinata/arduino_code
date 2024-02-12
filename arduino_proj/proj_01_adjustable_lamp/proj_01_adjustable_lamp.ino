@@ -1,7 +1,9 @@
 #include <Wire.h>
 #include <SoftwareSerial.h>
-SoftwareSerial myserial(10, 11);
 #include <LiquidCrystal_I2C.h>
+#include "bh1750.h"
+
+SoftwareSerial myserial(10, 11);
 LiquidCrystal_I2C lcd(0x20, 16, 2);
 
 // GY-30
@@ -11,11 +13,6 @@ LiquidCrystal_I2C lcd(0x20, 16, 2);
 // addr 'H' mode
 #define ADDR 0b1011100
 #define FILTER_A 1
-
-/* BH1750FVI
-https://blog.csdn.net/qq_55490300/article/details/130967259
-https://blog.csdn.net/u012308586/article/details/105728566
-*/
 
 String teststring = "";
 //char s;/
