@@ -12,6 +12,11 @@ int encoderPinB = 3; //interrrupt pin 3
 
 void setup() {
     Serial.begin(115200);
+    ROTARYENCODER_Init();
+}
+
+void ROTARYENCODER_Init(void) {
+    // encoder setup
     pinMode(encoderPinA, INPUT); 
     pinMode(encoderPinB, INPUT); 
     //Setting up interrupt
@@ -22,12 +27,13 @@ void setup() {
     attachInterrupt(digitalPinToInterrupt(encoderPinB), doEncoderB, CHANGE);
 }
 
-//Serial.print(bh1750Val_lux);                                     //串口打印对应的值
-//Serial.println("[lx]");                                      //串口打印对应的值
-
 void loop() {
+    ROTARYENCODER_Show();
+}
+
+void ROTARYENCODER_Show(void) {
     // Send the value of counter
-    if ( encoderCounter!= temp) {
+    if (encoderCounter!= temp) {
         //double angle = encoderCounter*360/172032.0;//ppr=172032
         double angle = encoderCounter*4.5;  //一圈对应数值80
         //Serial.println(encoderCounter);
@@ -36,7 +42,7 @@ void loop() {
         temp = encoderCounter;
     }
 }
-//
+
 
 void doEncoderA() {
     // look for a low-to-high on channel A
