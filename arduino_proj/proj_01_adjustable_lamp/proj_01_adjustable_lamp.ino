@@ -1,11 +1,13 @@
 /*
 参考：https://oshwhub.com/song2001/ke-diao-tai-deng
+注：代码不全
 */
 #include <Wire.h>
 #include <SoftwareSerial.h>     // 无需下载库文件
 #include <LiquidCrystal_I2C.h>  // 搜索库LiquidCrystal I2C
 #include "bh1750.h"
 #include "led_array.h"
+#include "power_measure.h"
 
 SoftwareSerial myserial(10, 11);
 LiquidCrystal_I2C lcd(0x20, 16, 2);
@@ -20,7 +22,6 @@ LiquidCrystal_I2C lcd(0x20, 16, 2);
 
 String teststring = "";
 //char s;/
-
 String first = "";
 String secound = "";
 //char d[10];
@@ -28,20 +29,16 @@ int first_int = 0;
 int secound_int = 0;
 //int first_int_begin=0;
 //int secound_int_begin=0;
+
 int timess;
-int trise = 255;
+int trise = 255;    // 没有使用
 int lights = 0;
 int lights_secound;
 int jobss = 1;
-int Filter_Value;
-int count = 0;
-int num = 0;
+int Filter_Value;   // 没有使用
+int count = 0;      // 没有使用
+int num = 0;        // 没有使用
 int i = 0;
-float vvv=0;
-float aaa;
-float ppp;
-int Value;
-float k = 1.146;
 
 void setup() {
     Serial.begin(9600);
@@ -51,12 +48,10 @@ void setup() {
     pinMode(5, OUTPUT);
     pinMode(6, OUTPUT);
     pinMode(9, OUTPUT);
-    lcd.init(); //初始化LCD
+    lcd.init();     //初始化LCD
     lcd.backlight();//背光打开// put your setup code here, to run once:
     // key D8
     pinMode(8, INPUT);
-
-  //Value=251;
 }
 
 void loop() {
@@ -107,9 +102,6 @@ void loop() {
     }
 
     if (jobss == 3) {
-        //    lcd.clear();
-        //lcd.setCursor(3,1);
-        //  lcd.print("   ");
         work2();
     }
 
@@ -127,48 +119,9 @@ void work1() {
     analogWrite(5, lights_secound*2);//2
     analogWrite(6, lights_secound*2);//
     analogWrite(9, lights_secound*2);
-    lcd.setCursor(0, 1);
-    lcd.print("L=");
-    lcd.setCursor(3,1);
-
-    lcd.print(lights_secound*2);
-    if ((lights_secound*2<100)&&(lights_secound*2>10)) {
-        lcd.setCursor(5,1);
-        lcd.print(" ");
-        //    delay(3);
-    }
-
-    if (lights_secound*2<10) {
-        lcd.setCursor(4,1);
-        lcd.print("  ");
-    //    delay(3);
-    }
-
-    lcd.setCursor(6,1);
-    lcd.print("R");
-    vvv=analogRead(A1);
-    float spsps=vvv/100;
-    lcd.setCursor(0, 0);
-    lcd.print("V=");
-    lcd.setCursor(2, 0);
-    lcd.print(spsps);
-    lcd.setCursor(6, 0);
-    lcd.print("v");
-    aaa=(analogRead(A0) - 147) * k;//电流大小
-    // Serial.println(aaa);
-    lcd.setCursor(9, 0);
-    lcd.print("A=");
-    lcd.setCursor(11, 0);
-    lcd.print((aaa/1000)-0.019);
-    lcd.setCursor(15, 0);
-    lcd.print("a");
-
-    ppp=((aaa-20)*spsps)/1000;//计算功率
-    lcd.setCursor(9, 1);
-    lcd.print("p=");
-    lcd.print(ppp+0.05);
-    lcd.setCursor(15, 1);
-    lcd.print("w");
+    // lcd打印功率测量:V-A-L(light)-P
+    POWERMEASURE_Show(lights_secound);
+    //
     read_message();
 //  Serial.print("xxx");
 }
@@ -179,6 +132,7 @@ void work2() {
     LEDARRAY_Set(secound_int);
 }
 
+// 读取软串口消息, 哪里发送消息呢？
 //此处修改为了 int  void
 void  read_message() {
     if (myserial.available() > 0) {
