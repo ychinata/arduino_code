@@ -1,3 +1,4 @@
+/*
 #include <Wire.h>
 #include <SoftwareSerial.h>
 SoftwareSerial myserial(10, 11);
@@ -327,3 +328,5 @@ bool button(int pin)
   }
   return 0;
 }
+
+*/
