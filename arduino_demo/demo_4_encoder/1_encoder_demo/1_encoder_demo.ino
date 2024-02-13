@@ -1,7 +1,8 @@
 /*
-https://blog.csdn.net/lihe4151021/article/details/121776815
-顺时针转一圈：80
-逆时针转一圈：-80
+    旋转编码器读取（不带开关），使用中断实现
+    https://blog.csdn.net/lihe4151021/article/details/121776815
+    顺时针转一圈：80
+    逆时针转一圈：-80
 */
 //volatile long temp, encoderCounter =0; //This variable will increase or decreas depending on the rotation of encoder
 int temp = 0;
