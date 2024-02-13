@@ -1,7 +1,11 @@
-//https://www.cnblogs.com/54programer/p/15806912.html
+/*
+    应该是适用于电机编码器，不是旋转编码器
+    //https://www.cnblogs.com/54programer/p/15806912.html
+*/
+
 #define PinA 2 //外部中断0
-#define PinZ 3 //外部中断1
-#define PinB 8 //编码器的OUT_B信号连接到数字端口8
+#define PinZ 8 //外部中断1
+#define PinB 3 //编码器的OUT_B信号连接到数字端口8
  
 //变量初始化
 unsigned long time1 = 0; // 时间标记
@@ -29,6 +33,7 @@ void setup()
 void loop()
 {
     double distance;
+    //Serial.println(count);
     //正转
     if (count == 2500) {
         //      Serial.println("ok");//调试用
