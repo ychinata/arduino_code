@@ -8,6 +8,7 @@
 #include "bh1750.h"
 #include "led_array.h"
 #include "power_measure.h"
+#include "softserial.h"
 
 SoftwareSerial myserial(10, 11);
 LiquidCrystal_I2C lcd(0x20, 16, 2);
@@ -19,16 +20,6 @@ LiquidCrystal_I2C lcd(0x20, 16, 2);
 // addr 'H' mode
 #define ADDR 0b1011100
 #define FILTER_A 1
-
-String teststring = "";
-//char s;/
-String first = "";
-String secound = "";
-//char d[10];
-int first_int = 0;
-int secound_int = 0;
-//int first_int_begin=0;
-//int secound_int_begin=0;
 
 int timess;
 int trise = 255;    // 没有使用
@@ -79,7 +70,6 @@ void loop() {
     }
 
     if (jobss == 2) {
-//    lcd.clear();
         lcd.setCursor(0, 1);
         lcd.print("L=");
         lcd.setCursor(3,1);
@@ -98,7 +88,6 @@ void loop() {
         lcd.print("p=0.01");
         lcd.setCursor(15, 1);
         lcd.print("w");
-//    work2();
     }
 
     if (jobss == 3) {
@@ -122,49 +111,15 @@ void work1() {
     // lcd打印功率测量:V-A-L(light)-P
     POWERMEASURE_Show(lights_secound);
     //
-    read_message();
+    SOFTSERIAL_Readmsg();
 //  Serial.print("xxx");
 }
 
+// 有连接灯板吗?
 void work2() {
-    read_message();
-    Serial.println(secound_int);
-    LEDARRAY_Set(secound_int);
-}
-
-// 读取软串口消息, 哪里发送消息呢？
-//此处修改为了 int  void
-void  read_message() {
-    if (myserial.available() > 0) {
-        char s = myserial.read();
-        if (s == 'n') {
-            // Serial.println(teststring);
-            first = teststring;
-            teststring = "";
-        } else if (s == 'v') {
-            // Serial.println(teststring);
-            secound = teststring;
-            teststring = "";
-        } else {
-            teststring += s;
-            delay(15);
-        }
-    }
-    first_int = first.toInt();
-    secound_int = secound.toInt();
-    if (first_int < 0) {
-        first_int = first_int * -1;
-    }
-    if (secound_int < 0) {
-        secound_int = secound_int * -1;
-    }
-
-    //Serial.println(secound_int);
-    //此处返回值
-    //Serial.println((secound_int*4)+ 100);
-    //  return ((secound_int * 4) + 100);
-    //Serial.println(secound_int);
-    return secound_int;
+    int val = SOFTSERIAL_Readmsg();
+    Serial.println(val);
+    LEDARRAY_Set(val);
 }
 
 // 按键消抖

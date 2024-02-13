@@ -154,12 +154,12 @@ void work1() {
   lcd.print(ppp+0.05);
   lcd.setCursor(15, 1);
   lcd.print("w");
-  read_message();
+  SOFTSERIAL_Readmsg();
 //  Serial.print("xxx");
 }
 void work2() {
   
- read_message();
+ SOFTSERIAL_Readmsg();
  
  Serial.println(secound_int);
   tiaojie();
@@ -168,7 +168,7 @@ void work2() {
 }
 
 //此处修改为了 int  void
-void  read_message() {
+void  SOFTSERIAL_Readmsg() {
   if (myserial.available() > 0) {
     char s = myserial.read();
     if (s == 'n') {
