@@ -3,10 +3,12 @@
 
 #include <Arduino.h>
 
-void doEncoderA();
-void doEncoderB();
-
+// internal
+void ROTARYENCODER_INTA();
+void ROTARYENCODER_INTB();
+// external
 void ROTARYENCODER_Init(void);
 void ROTARYENCODER_Show(void);
+double ROTARYENCODER_GetData(void);
 
 #endif
