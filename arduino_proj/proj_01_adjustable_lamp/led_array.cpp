@@ -1,6 +1,22 @@
 // 阵列LED的接口：D3/5/6/9
 #include "led_array.h"
 
+/*
+在一些基于ATmega168和ATmega328的Arduino控制器中，analogWrite()函数支持以下引脚(pwm): 3, 5, 6, 9, 10, 11
+http://www.taichi-maker.com/homepage/reference-index/arduino-code-reference/analogwrite/
+pwmValue:0到255之间的PWM频率值, 0对应off, 255对应on
+*/
+void LED_SetPinPwm(int ledPin, int pwmValue) {
+    analogWrite(ledPin, pwmValue);
+}
+
+void LED_SetPinBlink(int ledPin) {
+    digitalWrite(ledPin, HIGH);   // 可选LED_BUILTIN
+    delay(500);                       
+    digitalWrite(ledPin, LOW);    
+    delay(500);                       
+}
+
 // 调节灯：AO输出为0-255
 void LEDARRAY_Set(int secound_int) {
     // 可优化成查表，减少冗余代码

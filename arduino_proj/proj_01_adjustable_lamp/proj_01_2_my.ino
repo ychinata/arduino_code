@@ -7,13 +7,12 @@
 #include "led_array.h"
 #include "power_measure.h"
 
+#define LED_PIN 5   // D5
+
 void setup() {
     Serial.begin(9600);
-    // 四路灯板D3/5/6/9
-    pinMode(3, OUTPUT);
-    pinMode(5, OUTPUT);
-    pinMode(6, OUTPUT);
-    pinMode(9, OUTPUT);
+    // 一路灯板D4
+    pinMode(LED_PIN, OUTPUT);
     // key D8
     pinMode(8, INPUT);
 }
@@ -22,20 +21,14 @@ void loop() {
 //  lights = analogRead(A1);
   //Serial.println(lights);
 //  lights_secound = map(lights, 0, 1024, 0, 255);
-//  analogWrite(3, 210);//1
-//    analogWrite(5, 210);//2
-//    analogWrite(6, 210);//
-//    analogWrite(9, 210);
-//  lcd.setCursor(2, 1);
-//  lcd.print(lights_secound);
+
+    LED_SetPinBlink(LED_PIN);
+
 // if(button(7)){
 // Serial.println("1111"); 
 // }
-// 
-  // Serial.println(secound_int);
-
-    work3();
-    work4();
+    //work3();
+    //work4();
 }
 
 void work3() {
