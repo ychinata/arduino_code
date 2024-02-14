@@ -31,7 +31,7 @@ int count = 0;      // 没有使用
 int num = 0;        // 没有使用
 int i = 0;
 
-void setup() {
+void setup1() {
     Serial.begin(9600);
     myserial.begin(9600);
     // 四路灯板D3/5/6/9
@@ -45,7 +45,7 @@ void setup() {
     pinMode(8, INPUT);
 }
 
-void loop() {
+void loop1() {
 //  lights = analogRead(A1);
   //Serial.println(lights);
 //  lights_secound = map(lights, 0, 1024, 0, 255);
