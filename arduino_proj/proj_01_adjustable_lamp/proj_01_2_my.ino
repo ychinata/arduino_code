@@ -1,16 +1,22 @@
-/*
-参考：https://oshwhub.com/song2001/ke-diao-tai-deng
-注：代码不全
-*/
+/********************************************
+ *@File: 基于Arduino Nano的LED调光灯 
+ *@Author: xxy
+ *@Date: 2024.2.14
+ *********************************************/
 #include <Wire.h>
 #include "bh1750.h"
 #include "led_array.h"
 #include "power_measure.h"
+#include "rotary_encoder.h"
 
+// IO config
 #define LED_PIN 5   // D5
+//
 
 void setup() {
+    // 初始化
     Serial.begin(9600);
+    ROTARYENCODER_Init();    
     // 一路灯板D4
     pinMode(LED_PIN, OUTPUT);
     // key D8
@@ -18,28 +24,26 @@ void setup() {
 }
 
 void loop() {
-//  lights = analogRead(A1);
-  //Serial.println(lights);
-//  lights_secound = map(lights, 0, 1024, 0, 255);
-
-    LED_SetPinBlink(LED_PIN);
+    //Serial.println(lights);
+    double brightValue = 0.0;
+    int ledPwmValue = 0;
+    
+    brightValue = ROTARYENCODER_GetData();          // 获取编码器设定的亮度值
+    ledPwmValue = map(brightValue, 0, 360, 0, 255); // 将编码器原始值0-360映射到pwm值0-255,超出0-360的范围会重新映射
+    LED_SetPinPwm(LED_PIN, ledPwmValue);            // 调光
+    //LED_SetPinBlink(LED_PIN);
+    ROTARYENCODER_Show();       // 调光值维测
+    //Serial.println(ledPwmValue);
 
 // if(button(7)){
 // Serial.println("1111"); 
 // }
-    //work3();
-    //work4();
 }
 
 void work3() {
     int lights = analogRead(A2);
     //Serial.println(lights);
     int lights_secound = map(lights, 0, 1023, 0, 127);
-    Serial.println(lights_secound*2); // 串口输出
-    analogWrite(3, lights_secound*2);//1
-    analogWrite(5, lights_secound*2);//2
-    analogWrite(6, lights_secound*2);//
-    analogWrite(9, lights_secound*2);
 //  Serial.print("xxx");
 }
 
