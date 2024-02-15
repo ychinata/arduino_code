@@ -6,6 +6,7 @@
 #include <Wire.h>
 #include "bh1750.h"
 #include "led_array.h"
+#include "oled_i2c_adafruit.h"
 #include "power_measure.h"
 #include "rotary_encoder.h"
 
@@ -16,7 +17,9 @@
 void setup() {
     // 初始化
     Serial.begin(9600);
-    ROTARYENCODER_Init();    
+    OLED_I2C_Adafruit_Init();  
+    ROTARYENCODER_Init();  
+
     // 一路灯板D4
     pinMode(LED_PIN, OUTPUT);
     // key D8
@@ -34,10 +37,7 @@ void loop() {
     //LED_SetPinBlink(LED_PIN);
     ROTARYENCODER_Show();       // 调光值维测
     //Serial.println(ledPwmValue);
-
-// if(button(7)){
-// Serial.println("1111"); 
-// }
+    OLED_ShowBright(brightValue, ledPwmValue);
 }
 
 void work3() {
