@@ -10,6 +10,7 @@
 
 void BH1750_Init(void);
 int BH1750_Read(int address);
-void BH1750_GetData(void);
+void BH1750_ShowData(void);
+int BH1750_GetData(void);
 
 #endif

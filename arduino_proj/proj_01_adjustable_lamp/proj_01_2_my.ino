@@ -17,6 +17,7 @@
 void setup() {
     // 初始化
     Serial.begin(9600);
+    BH1750_Init();                  //初始化BH1750
     OLED_I2C_Adafruit_Init();  
     ROTARYENCODER_Init();  
 
@@ -30,14 +31,15 @@ void loop() {
     //Serial.println(lights);
     double brightValue = 0.0;
     int ledPwmValue = 0;
+    int lux = 0;
     
     brightValue = ROTARYENCODER_GetData();          // 获取编码器设定的亮度值
     ledPwmValue = map(brightValue, 0, 360, 0, 255); // 将编码器原始值0-360映射到pwm值0-255,超出0-360的范围会重新映射
     LED_SetPinPwm(LED_PIN, ledPwmValue);            // 调光
-    //LED_SetPinBlink(LED_PIN);
     ROTARYENCODER_Show();       // 调光值维测
     //Serial.println(ledPwmValue);
-    OLED_ShowBright(brightValue, ledPwmValue);
+    lux = BH1750_GetData();               // 获取光照强度数据
+    OLED_ShowBright(brightValue, ledPwmValue, lux);
 }
 
 void work3() {

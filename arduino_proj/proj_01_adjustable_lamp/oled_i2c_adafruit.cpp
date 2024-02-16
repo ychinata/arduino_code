@@ -70,17 +70,20 @@ void OLED_SetDisplay(void) {
 }
 
 //业务代码2024.2.15
-void OLED_ShowBright(double brightValue, int ledPwmValue) {
+void OLED_ShowBright(double brightValue, int ledPwmValue, int lux) {
     char str1[20];
     char str2[20];
+    char str_lux[20];
     int freqno;
-    int fontsize = 1;
+    int fontsize = 2;
 
-    sprintf(str1, "brightValue:%d", (int)brightValue);
-    sprintf(str2, "ledPwmValue:%d", ledPwmValue);
+    sprintf(str1, "Angle:%d", (int)brightValue);
+    sprintf(str2, "Pwm:%d", ledPwmValue);
+    sprintf(str_lux, "Lux:%d", lux);
 
     OLED_ClearDisplay();
     OLED_I2C_Adafruit_DrawStr(0*PX2, 0*PY2, str1, fontsize);  //第1行,第1列
-    OLED_I2C_Adafruit_DrawStr(0*PX2, 1*PY2, str2, fontsize);    //第2行,第3列
+    OLED_I2C_Adafruit_DrawStr(0*PX2, 1*PY2, str2, fontsize);    //第2行,第1列
+    OLED_I2C_Adafruit_DrawStr(0*PX2, 2*PY2, str_lux, fontsize);    //第3行,第1列
     OLED_SetDisplay();
 }

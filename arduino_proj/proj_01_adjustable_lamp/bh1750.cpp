@@ -14,8 +14,7 @@
 
 int bh1750_address = 0x23;                                           //设备IIC地址
 byte buff[2];                                                       //定义数组
-int bh1750Val_lux = 0;
-unsigned long bh1750Times = 0;                                      //记录设备运行时间
+unsigned long g_bh1750Times = 0;                                      //记录设备运行时间
 
 /* BH1750初始化地址 */
 void BH1750_Init(void) {
@@ -46,13 +45,21 @@ int BH1750_Read(int address) {
 }
 
 /* BH1750获取数据 */
-void BH1750_GetData(void) {
-    if (millis() - bh1750Times >= bh1750TimeInterval) {              //一定时间执行一次
-        bh1750Times = millis();
-        if (BH1750_OK == BH1750_Read(bh1750_address)) {
-            bh1750Val_lux = ((buff[0] << 8) | buff[1]) / 1.2;
-            Serial.print(bh1750Val_lux);                                     //串口打印对应的值
-            Serial.println("[lx]");                                      //串口打印对应的值
-        }
+int BH1750_GetData(void) {
+    int lux;
+    if (BH1750_OK == BH1750_Read(bh1750_address)) {
+        lux = ((buff[0] << 8) | buff[1]) / 1.2;
+    }
+    return lux;
+}
+
+/* BH1750获取数据 */
+void BH1750_ShowData(void) {
+    int lux;
+    if (millis() - g_bh1750Times >= bh1750TimeInterval) {              //一定时间执行一次
+        g_bh1750Times = millis();
+        lux = BH1750_GetData();
+        Serial.print(lux);                                     //串口打印对应的值
+        Serial.println("[lx]");                                      //串口打印对应的值
     }
 }
