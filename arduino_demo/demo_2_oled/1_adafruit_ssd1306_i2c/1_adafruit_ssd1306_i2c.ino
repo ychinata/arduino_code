@@ -12,14 +12,5 @@ void setup() {
 }
 
 void loop() {
-    /*
-    // 向右滚屏
-    display.startscrollright(0x00, 0x0F);
-    delay(5000);
-    display.stopscroll();
-    // 向左滚屏
-    display.startscrollleft(0x00, 0x0F);
-    delay(1000);
-    display.stopscroll();
-    */
+  OLED_I2C_Adafruit_ScrollTest();
 }

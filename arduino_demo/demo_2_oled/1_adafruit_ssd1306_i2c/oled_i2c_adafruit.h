@@ -19,6 +19,7 @@ void OLED_ClearDisplay(void);
 void OLED_SetDisplay(void);
 
 //test
+void OLED_I2C_Adafruit_ScrollTest(void);
 void OLED_I2C_Adafruit_DrawStrSize2Test(void);
 
 #endif

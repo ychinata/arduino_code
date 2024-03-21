@@ -61,6 +61,19 @@ void OLED_I2C_Adafruit_DrawStrSize2Test(void) {
     OLED_SetDisplay();
 }
 
+// 滚屏测试
+void OLED_I2C_Adafruit_ScrollTest(void) {
+    // 向右滚屏
+    //display.startscrollright(0x00, 0x0F);
+    OledObj.startscrollright(0x00, 0x0F);
+    delay(5000);
+    OledObj.stopscroll();
+    // 向左滚屏
+    OledObj.startscrollleft(0x00, 0x0F);
+    delay(1000);
+    OledObj.stopscroll();
+}
+
 void OLED_ClearDisplay(void) {
     OledObj.clearDisplay();         //清屏
 }
@@ -68,3 +81,6 @@ void OLED_ClearDisplay(void) {
 void OLED_SetDisplay(void) {
     OledObj.display(); // 开显示
 }
+
+//业务代码todo
+
