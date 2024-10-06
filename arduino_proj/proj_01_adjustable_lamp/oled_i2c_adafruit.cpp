@@ -90,12 +90,14 @@ void OLED_ShowBright(double brightValue, int ledPwmValue, int lux, float humidit
     sprintf(str_humi_temp, "Hum:%s,Tem:%s", str_humi, str_temp);
     //sprintf(str_humi_temp, "Hum:%s", str_humi);
 
-/*
+/* //放开这几行就会出现SSD1306 allocation failed的问题，不清楚为什么?
     Serial.print("Humidity: ");//湿度
     Serial.println(humidity);
     Serial.print("Temperature: ");//温度
     Serial.print(temp);
-    Serial.println(" ℃ "); */
+    Serial.println(" ℃ "); 
+
+    */
     Serial.println(str_humi);
     Serial.println(str_temp);
 
