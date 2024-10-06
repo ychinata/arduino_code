@@ -77,7 +77,7 @@ void OLED_ShowBright(double brightValue, int ledPwmValue, int lux, float humidit
     char str_lux[20];
     char str_humi[6];
     char str_temp[6];
-    char str_humi_temp[20];
+    char str_humi_temp[22];
     int fontsize = 1;
 
     sprintf(str1, "EncoderAngle:%d", (int)brightValue);
@@ -87,8 +87,8 @@ void OLED_ShowBright(double brightValue, int ledPwmValue, int lux, float humidit
     //sprintf(str_humi_temp, "Humi:%4.2f,Temp:%4.2f", humidity, temp);  // 会出错，原因未知
     dtostrf(humidity, 4, 2, str_humi);
     dtostrf(temp, 4, 2, str_temp);
-    //sprintf(str_humi_temp, "Hum:%s,Tem:%s", str_humi, str_temp);
-    sprintf(str_humi_temp, "Hum:%s", str_humi);
+    sprintf(str_humi_temp, "Hum:%s,Tem:%s", str_humi, str_temp);
+    //sprintf(str_humi_temp, "Hum:%s", str_humi);
 
 /*
     Serial.print("Humidity: ");//湿度
