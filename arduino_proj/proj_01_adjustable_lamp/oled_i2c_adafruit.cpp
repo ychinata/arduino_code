@@ -75,7 +75,7 @@ void OLED_ShowBright(double brightValue, int ledPwmValue, int lux) {
     char str2[20];
     char str_lux[20];
     int freqno;
-    int fontsize = 2;
+    int fontsize = 1;
 
     sprintf(str1, "Angle:%d", (int)brightValue);
     sprintf(str2, "Pwm:%d", ledPwmValue);

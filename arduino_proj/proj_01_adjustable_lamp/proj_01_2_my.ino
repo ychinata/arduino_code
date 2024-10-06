@@ -4,11 +4,19 @@
  *@Date: 2024.2.14
  *********************************************/
 #include <Wire.h>
+#include <DHT.h>  // 安装DHT sensor library和Adafruit Unified Sensor两个库
 #include "bh1750.h"
 #include "led_array.h"
 #include "oled_i2c_adafruit.h"
 #include "power_measure.h"
 #include "rotary_encoder.h"
+
+//定义针脚
+#define DHTPIN 8 
+//定义类型，DHT11或者其它
+#define DHTTYPE DHT11
+//进行初始设置 
+DHT dht(DHTPIN, DHTTYPE);
 
 // IO config
 #define LED_PIN 5   // D5
@@ -20,6 +28,7 @@ void setup() {
     BH1750_Init();                  //初始化BH1750
     OLED_I2C_Adafruit_Init();  
     ROTARYENCODER_Init();  
+    dht.begin(); //DHT开始工作
 
     // 一路灯板D4
     pinMode(LED_PIN, OUTPUT);
@@ -33,13 +42,32 @@ void loop() {
     int ledPwmValue = 0;
     int lux = 0;
     
-    brightValue = ROTARYENCODER_GetData();          // 获取编码器设定的亮度值
+    brightValue = 100;
+    //brightValue = ROTARYENCODER_GetData();          // 获取编码器设定的亮度值
     ledPwmValue = map(brightValue, 0, 360, 0, 255); // 将编码器原始值0-360映射到pwm值0-255,超出0-360的范围会重新映射
     LED_SetPinPwm(LED_PIN, ledPwmValue);            // 调光
     ROTARYENCODER_Show();       // 调光值维测
     //Serial.println(ledPwmValue);
     lux = BH1750_GetData();               // 获取光照强度数据
     OLED_ShowBright(brightValue, ledPwmValue, lux);
+    DHT11_Getdata();
+    delay(2000);
+}
+
+/* 获取DHT11的温度和湿度
+ * 结果为两位小数：Humidity: 52.00, Temperature: 30.40
+ */
+void DHT11_Getdata() {
+    // 两次检测之间，要等几秒钟，这个传感器有点慢。
+    //delay(2000);
+    // 读温度或湿度要用250毫秒
+    float h = dht.readHumidity();//读湿度
+    float t = dht.readTemperature();//读温度，默认为摄氏度
+    Serial.print("Humidity: ");//湿度
+    Serial.println(h);
+    Serial.print("Temperature: ");//温度
+    Serial.print(t);
+    Serial.println(" ℃ ");
 }
 
 void work3() {
