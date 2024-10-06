@@ -22,6 +22,6 @@ void OLED_SetDisplay(void);
 void OLED_I2C_Adafruit_DrawStrSize2Test(void);
 
 //业务代码
-void OLED_ShowBright(double brightValue, int ledPwmValue, int lux);
+void OLED_ShowBright(double brightValue, int ledPwmValue, int lux, float humidity, float temp);
 
 #endif

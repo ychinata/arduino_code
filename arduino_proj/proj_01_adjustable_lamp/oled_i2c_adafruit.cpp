@@ -70,20 +70,39 @@ void OLED_SetDisplay(void) {
 }
 
 //业务代码2024.2.15
-void OLED_ShowBright(double brightValue, int ledPwmValue, int lux) {
+//History: 增加温湿度维测.2024.10.6
+void OLED_ShowBright(double brightValue, int ledPwmValue, int lux, float humidity, float temp) {
     char str1[20];
     char str2[20];
     char str_lux[20];
-    int freqno;
+    char str_humi[6];
+    char str_temp[6];
+    char str_humi_temp[20];
     int fontsize = 1;
 
-    sprintf(str1, "Angle:%d", (int)brightValue);
+    sprintf(str1, "EncoderAngle:%d", (int)brightValue);
     sprintf(str2, "Pwm:%d", ledPwmValue);
     sprintf(str_lux, "Lux:%d", lux);
+
+    //sprintf(str_humi_temp, "Humi:%4.2f,Temp:%4.2f", humidity, temp);  // 会出错，原因未知
+    dtostrf(humidity, 4, 2, str_humi);
+    dtostrf(temp, 4, 2, str_temp);
+    //sprintf(str_humi_temp, "Hum:%s,Tem:%s", str_humi, str_temp);
+    sprintf(str_humi_temp, "Hum:%s", str_humi);
+
+/*
+    Serial.print("Humidity: ");//湿度
+    Serial.println(humidity);
+    Serial.print("Temperature: ");//温度
+    Serial.print(temp);
+    Serial.println(" ℃ "); */
+    Serial.println(str_humi);
+    Serial.println(str_temp);
 
     OLED_ClearDisplay();
     OLED_I2C_Adafruit_DrawStr(0*PX2, 0*PY2, str1, fontsize);  //第1行,第1列
     OLED_I2C_Adafruit_DrawStr(0*PX2, 1*PY2, str2, fontsize);    //第2行,第1列
     OLED_I2C_Adafruit_DrawStr(0*PX2, 2*PY2, str_lux, fontsize);    //第3行,第1列
+    OLED_I2C_Adafruit_DrawStr(0*PX2, 3*PY2, str_humi_temp, fontsize);    //第4行,第1列
     OLED_SetDisplay();
 }
