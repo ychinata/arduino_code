@@ -3,8 +3,8 @@
   接线：
   3.3------VCC
   GND------GND
-  SCL------SCL
-  SDA------SDA
+  SCL------SCL(A5)
+  SDA------SDA(A4)
     https://blog.csdn.net/qq_55490300/article/details/130967259  
 */
 //#include <Arduino.h>

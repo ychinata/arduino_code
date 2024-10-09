@@ -28,7 +28,7 @@ void POWERMEASURE_Show(int lights_secound) {
     lcd.setCursor(6,1);
     lcd.print("R");
     // 第0行？
-    vvv=analogRead(A1);     //电压大小
+    vvv=analogRead(MEASURE_VOLTAGE_PIN);     //电压大小
     float spsps=vvv/100;
     lcd.setCursor(0, 0);
     lcd.print("U=");
@@ -36,7 +36,7 @@ void POWERMEASURE_Show(int lights_secound) {
     lcd.print(spsps);
     lcd.setCursor(6, 0);
     lcd.print("V");
-    aaa=(analogRead(A0) - 147) * k;//电流大小
+    aaa=(analogRead(MEASURE_CURRENT_PIN) - 147) * k;//电流大小
     // Serial.println(aaa);
     lcd.setCursor(9, 0);
     lcd.print("I=");
